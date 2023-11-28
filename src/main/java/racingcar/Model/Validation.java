@@ -12,7 +12,7 @@ public class Validation {
     }
 
     public static void validateNameLength (String name) {
-        if(name.length() > 5 || name.isEmpty()) {
+        if(name.length() > ConditionValues.MIN_NAME_LENGTH.getNumber() || name.isEmpty()) {
             throw new IllegalArgumentException(DefaultErrorMessage.VALIDATE_NAME.getMessage());
         }
     }
