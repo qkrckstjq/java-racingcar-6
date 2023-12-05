@@ -1,26 +1,29 @@
 package racingcar.Controller;
 
+import racingcar.Model.Domain.Cars.Car;
 import racingcar.Model.Domain.Cars.CarObject;
+import racingcar.Model.Service.RaceService;
 import racingcar.Model.Utils;
 import racingcar.Model.Validation;
 import racingcar.View.DefaultMessage;
 import racingcar.View.InputView;
 import racingcar.View.OutputView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameController {
-    private CarObject[] carList;
-    private int progressNumber;
     public void run () {
-        translateNames(InputView.printInputCars());
-        translateNumber(InputView.printInputNumber());
-        printSteps();
-        printWinner();
+        List<Car> carList = translateNames(InputView.printInputCars());
+        int progressNumber = translateNumber(InputView.printInputNumber());
+        printSteps(progressNumber, carList);
+        printWinner(carList);
     }
 
-    private void translateNames (String names) {
+    private List<Car> translateNames (String names) {
         String[] nameList = names.split(",");
         validateInputName(nameList);
-        initCarsName(nameList);
+        return initCarsName(nameList);
     }
 
     private void validateInputName (String[] nameList) {
@@ -29,40 +32,38 @@ public class GameController {
         }
     }
 
-    private void initCarsName (String[] nameList) {
-        carList = new CarObject[nameList.length];
+    private List<Car> initCarsName (String[] nameList) {
+        List<Car> carList = new ArrayList<>(nameList.length);
         for(int i = 0; i < nameList.length; i++) {
-            carList[i] = new CarObject();
-            carList[i].setName(nameList[i]);
+            CarObject temp = new CarObject();
+            temp.setName(nameList[i]);
+            carList.add(i,temp);
         }
+        return carList;
     }
 
-    private void translateNumber (String inputNumber) {
-        this.progressNumber = Validation.validateInteger(inputNumber);
+    private int translateNumber (String inputNumber) {
+        return Validation.validateInteger(inputNumber);
     }
 
-    private void printSteps () {
+    private void printSteps (int progressNumber, List<Car> carList) {
         OutputView.printResultMessage();
+        RaceService raceService = new RaceService();
         for(int i = 0; i < progressNumber; i++) {
-            printStepResult();
+            raceService.race(carList);
+            printStepResult(carList);
         }
     }
-
-    private void printStepResult () {
-        for (CarObject carObject : carList) {
-            if (carObject.isForward()) {
-                carObject.setProgress();
-            }
+    private void printStepResult (List<Car> carList) {
+        for (Car carObject : carList) {
             OutputView.printResult(carObject.getName(), carObject.getProgress());
         }
         System.out.println();
     }
 
-    private void printWinner () {
+    private void printWinner (List<Car> carList) {
         OutputView.printResult(DefaultMessage.WINNER_MESSAGE.getMessage(), Utils.getWinners(carList));
     }
-
-
 
 
 }
