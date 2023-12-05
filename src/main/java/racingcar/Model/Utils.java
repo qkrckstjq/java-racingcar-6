@@ -1,6 +1,6 @@
 package racingcar.Model;
 
-import racingcar.Model.Cars.CarObject;
+import racingcar.Model.Domain.Cars.CarObject;
 
 public class Utils {
     public static String getWinners (CarObject[] list) {

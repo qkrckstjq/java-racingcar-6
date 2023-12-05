@@ -1,4 +1,4 @@
-package racingcar.Model.Cars;
+package racingcar.Model.Domain.Cars;
 
 public interface Car {
     boolean isForward();

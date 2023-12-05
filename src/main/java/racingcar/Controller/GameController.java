@@ -1,13 +1,11 @@
 package racingcar.Controller;
 
-import racingcar.Model.Cars.CarObject;
+import racingcar.Model.Domain.Cars.CarObject;
 import racingcar.Model.Utils;
 import racingcar.Model.Validation;
 import racingcar.View.DefaultMessage;
 import racingcar.View.InputView;
 import racingcar.View.OutputView;
-
-import java.util.Arrays;
 
 public class GameController {
     private CarObject[] carList;

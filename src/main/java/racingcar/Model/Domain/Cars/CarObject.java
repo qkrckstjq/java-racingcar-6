@@ -1,13 +1,12 @@
-package racingcar.Model.Cars;
+package racingcar.Model.Domain.Cars;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import racingcar.Model.ConditionValues;
-import racingcar.View.DefaultErrorMessage;
 import racingcar.View.DefaultMessage;
 
 public class CarObject implements Car{
     private String name;
-    private String progress;
+    private String progress = "";
     public boolean isForward () {
         return Randoms.pickNumberInRange(0, 9) >= ConditionValues.MIN_FORWARD_VALUE.getNumber();
     }
